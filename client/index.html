@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="description" content="NouRivo - Next-Gen Fitness, GPS Workout & Barcode Nutrition Tracker" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NouRivo" />
+    <title>NouRivo | Fitness & Nutrition Tracker</title>
+    
+    <!-- Google Fonts: Inter, Outfit & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google Maps JavaScript API (Loads only when VITE_GOOGLE_MAPS_API_KEY is configured) -->
+    <script>
+      (function() {
+        var k = document.querySelector('meta[name="google-maps-key"]');
+        var key = k ? k.getAttribute('content') : '';
+        if (key && key !== '' && !key.startsWith('%') && key.length > 10) {
+          var s = document.createElement('script');
+          s.src = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=geometry,places';
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
+    <meta name="google-maps-key" content="%VITE_GOOGLE_MAPS_API_KEY%" />
+  </head>
+  <body class="bg-dark-bg text-gray-100 font-sans antialiased selection:bg-brand-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

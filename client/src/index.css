@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-dark-bg text-gray-100 min-h-screen overflow-x-hidden font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Inter', sans-serif;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Custom Glassmorphism & Card Utilities */
+.glass-panel {
+  background: rgba(18, 18, 21, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-card {
+  background: linear-gradient(145deg, rgba(26, 26, 32, 0.85) 0%, rgba(18, 18, 21, 0.95) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Premium Interactive Telemetry Card */
+.telemetry-card {
+  background: rgba(18, 18, 21, 0.9);
+  border: 1px solid rgba(34, 36, 45, 0.9);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.telemetry-card:hover {
+  border-color: rgba(6, 182, 212, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(36, 81, 214, 0.3), 0 0 20px -3px rgba(6, 182, 212, 0.2);
+}
+
+.telemetry-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.65s;
+  pointer-events: none;
+}
+
+.telemetry-card:hover::after {
+  left: 160%;
+}
+
+.gradient-border-card {
+  background: linear-gradient(135deg, rgba(22, 24, 33, 0.95) 0%, rgba(14, 15, 20, 0.98) 100%);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(36, 81, 214, 0.3), rgba(16, 185, 129, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #ffffff 0%, #60a5fa 30%, #38bdf8 60%, #ffffff 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.glass-button {
+  background: rgba(36, 81, 214, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-button:hover {
+  background: rgba(36, 81, 214, 0.3);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 15px rgba(36, 81, 214, 0.4);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Cyber Glow Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.95);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(36, 81, 214, 0.5) 0%, rgba(6, 182, 212, 0.5) 100%);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2451D6 0%, #06B6D4 100%);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+}
+
+/* Google Maps dark container styling */
+.gmap-container {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.gmap-container .gm-style {
+  background: #0A0A0A !important;
+}
+
+/* Keyframes & Scroll Reveal Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(36, 81, 214, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(36, 81, 214, 0.7);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-levitate {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes tracking-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float-levitate 4s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) scaleY(0.85);
+  }
+  100% {
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+.animate-wave {
+  animation: wave 3.5s ease-in-out infinite;
+}
+
+

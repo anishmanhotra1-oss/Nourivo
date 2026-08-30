@@ -1,0 +1,12 @@
+{
+  "name": "nourivo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NouRivo - Next-Gen Fitness, GPS Workout & Barcode Nutrition Tracker",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "server:build": "cd server && npm run build"
+  }
+}

@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  weight       Float    @default(70.0) // in kg
+  height       Float    @default(175.0) // in cm
+  age          Int      @default(25)
+  gender       String   @default("other")
+  stepGoal     Int      @default(10000)
+  waterGoal    Int      @default(2500) // in ml
+  calorieGoal  Int      @default(2200)
+  sleepGoal    Int      @default(480) // in minutes (8 hrs)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  stepLogs            StepLog[]
+  workouts            Workout[]
+  foodLogs            FoodLog[]
+  waterLogs           WaterLog[]
+  sleepLogs           SleepLog[]
+  weightLogs          WeightLog[]
+  achievements        Achievement[]
+  sentFriendships     Friendship[]  @relation("UserSentFriendships")
+  receivedFriendships Friendship[]  @relation("UserReceivedFriendships")
+  sentMessages        ChatMessage[] @relation("SentChatMessages")
+  receivedMessages    ChatMessage[] @relation("ReceivedChatMessages")
+}
+
+model StepLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String   // ISO YYYY-MM-DD
+  stepCount Int
+  source    String   @default("manual") // manual, pedometer, sync
+  createdAt DateTime @default(now())
+
+  @@unique([userId, date])
+}
+
+model Workout {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type           String   // running, walking, cycling, hiking
+  startTime      DateTime
+  endTime        DateTime
+  distance       Float    // in kilometers
+  duration       Int      // in seconds
+  avgSpeed       Float    // in km/h
+  maxSpeed       Float    // in km/h
+  caloriesBurned Float
+  routeGeoJson   String?  // JSON stringified coordinates array [[lat, lng], ...]
+  averagePace    String?  // Formatted pace e.g. "5:24"
+  elevationGain  Float?   // Elevation gain in meters
+  cadence        Int?     // Average steps per minute
+  activeDuration Int?     // Active duration in seconds (excluding pauses)
+  createdAt      DateTime @default(now())
+}
+
+model FoodLog {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productBarcode String?
+  productName    String
+  brand          String?
+  calories       Float
+  protein        Float    // in grams
+  carbs          Float    // in grams
+  fat            Float    // in grams
+  sugar          Float    // in grams
+  servingSize    String   @default("100g")
+  loggedAt       DateTime @default(now())
+}
+
+model WaterLog {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountMl Int      // e.g. 250ml
+  loggedAt DateTime @default(now())
+}
+
+model SleepLog {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date            String   // ISO YYYY-MM-DD
+  durationMinutes Int      // e.g. 480 (8 hrs)
+  quality         Int      @default(3) // 1 to 5 stars
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, date])
+}
+
+model WeightLog {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weight   Float    // in kg
+  loggedAt DateTime @default(now())
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code        String   // FIRST_RUN, STEPS_10K, CENTURION_RUN, NUTRITION_MASTER, HYDRATED
+  title       String
+  description String
+  earnedAt    DateTime @default(now())
+}
+
+model Friendship {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation("UserSentFriendships", fields: [userId], references: [id], onDelete: Cascade)
+  friendId  String
+  friend    User     @relation("UserReceivedFriendships", fields: [friendId], references: [id], onDelete: Cascade)
+  status    String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, friendId])
+}
+
+model ChatMessage {
+  id         String   @id @default(uuid())
+  senderId   String
+  sender     User     @relation("SentChatMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String?  // null for Global Lounge chat, or friend userId for 1-on-1 direct message
+  receiver   User?    @relation("ReceivedChatMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  content    String
+  createdAt  DateTime @default(now())
+}

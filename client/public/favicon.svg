@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="nBlueLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="nBlueRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#2451D6" />
+    </linearGradient>
+    <linearGradient id="nWhiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <linearGradient id="nGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+  </defs>
+
+  <!-- Glowing Hexagonal Outer Shield Container with Crisp Cyan/Blue Border -->
+  <polygon points="60,6 112,33 112,87 60,114 8,87 8,33" fill="#0A0F1D" stroke="url(#nGlowGrad)" stroke-width="9" />
+
+  <!-- Silver Top Crown Accent -->
+  <polygon points="48,24 60,17 60,34 48,41" fill="url(#nWhiteGrad)" />
+  <polygon points="60,17 72,24 72,41 60,34" fill="#CBD5E1" />
+
+  <!-- Ultra-Bright 3D 'N' Emblem -->
+  <!-- Left Pillar -->
+  <polygon points="26,44 48,32 48,84 26,96" fill="url(#nBlueLeftGrad)" stroke="#60A5FA" stroke-width="2" />
+  <!-- Diagonal Bridge -->
+  <polygon points="48,32 94,68 94,84 48,48" fill="url(#nGlowGrad)" />
+  <!-- Right Pillar -->
+  <polygon points="72,44 94,32 94,84 72,96" fill="url(#nBlueRightGrad)" stroke="#38BDF8" stroke-width="2" />
+</svg>

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nourivo_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: nourivo
+      POSTGRES_PASSWORD: nourivo_pass
+      POSTGRES_DB: nourivo_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    container_name: nourivo_adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
