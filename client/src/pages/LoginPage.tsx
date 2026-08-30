@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Mail, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Logo } from '../components/common/Logo';
 import { AuthBackgroundAnimation } from '../components/common/AuthBackgroundAnimation';
@@ -24,18 +24,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       await login({ email: userEmailAddress, password: userPasswordSecret });
     } catch (error: any) {
       setAuthenticationError(error.message || 'Authentication failed. Please verify credentials.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleDemoSignIn = async () => {
-    setAuthenticationError(null);
-    setIsSubmitting(true);
-    try {
-      await login({ email: 'athlete@nourivo.com', password: 'demo123Password' });
-    } catch (error: any) {
-      setAuthenticationError(error.message || 'Demo authentication failed');
     } finally {
       setIsSubmitting(false);
     }
@@ -99,16 +87,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
           >
             <span>{isSubmitting ? 'Authenticating...' : 'Sign In'}</span>
             <ArrowRight className="w-4 h-4" />
-          </button>
-
-          <button
-            type="button"
-            onClick={handleDemoSignIn}
-            disabled={isSubmitting}
-            className="w-full py-2.5 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 font-mono text-xs uppercase tracking-wider rounded-xl transition-all border border-brand-500/40 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-lg"
-          >
-            <Zap className="w-4 h-4 text-brand-400 fill-brand-400" />
-            <span>Instant Demo Sign In (1-Click)</span>
           </button>
         </form>
 
